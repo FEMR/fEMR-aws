@@ -1,18 +1,18 @@
-import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import { FibulaLambdas } from './fibula-lambdas';
-import { Topic } from 'aws-cdk-lib/aws-sns';
-import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
-import { Bucket } from 'aws-cdk-lib/aws-s3';
-import { FibulaReactApp } from './fibula-react-app';
-import { FibulaApi } from './fibula-api';
-import { LogicalStage } from './femr-prod-stage';
-import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { AnyPrincipal } from 'aws-cdk-lib/aws-iam';
+import * as cdk from "aws-cdk-lib";
+import { Construct } from "constructs";
+import { FibulaLambdas } from "./fibula-lambdas";
+import { Topic } from "aws-cdk-lib/aws-sns";
+import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+import { FibulaReactApp } from "./fibula-react-app";
+import { FibulaApi } from "./fibula-api";
+import { LogicalStage } from "./femr-prod-stage";
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { AnyPrincipal } from "aws-cdk-lib/aws-iam";
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 interface FibulaStackProps extends cdk.StackProps {
-  logicalStage: LogicalStage
+  logicalStage: LogicalStage;
 }
 
 export class FibulaStack extends cdk.Stack {
@@ -27,40 +27,47 @@ export class FibulaStack extends cdk.Stack {
     super(scope, id, props);
 
     // React App
-    this.reactApp = new FibulaReactApp(this, 'ReactApp');
+    this.reactApp = new FibulaReactApp(this, "ReactApp");
 
     // SNS Topic
-    this.sendEnrollmentRequestTopic = new Topic(this, 'SendEnrollmentRequestTopic', {
-      displayName: 'Send enrollment request email',
-      topicName: 'send-enrollment-request',
-    });
+    this.sendEnrollmentRequestTopic = new Topic(
+      this,
+      "SendEnrollmentRequestTopic",
+      {
+        displayName: "Send enrollment request email",
+        topicName: "send-enrollment-request",
+      }
+    );
 
     this.sendEnrollmentRequestTopic.addSubscription(
-      new EmailSubscription('henry.pigg@gmail.com')
-    )
+      new EmailSubscription("bklingen@calpoly.edu")
+    );
 
-    this.sendEnrollmentResponseTopic = new Topic(this, 'SendEnrollmentResponseTopic', {
-      displayName: 'Send enrollment response email',
-      topicName: 'send-enrollment-response'
-    })
+    this.sendEnrollmentResponseTopic = new Topic(
+      this,
+      "SendEnrollmentResponseTopic",
+      {
+        displayName: "Send enrollment response email",
+        topicName: "send-enrollment-response",
+      }
+    );
 
     // S3 Bucket
-    this.installerBucket = new Bucket(this, 'InstallerBucket', {
-      bucketName: 'fibula-installer'
+    this.installerBucket = new Bucket(this, "InstallerBucket", {
+      bucketName: "fibula-installer",
     });
 
     // Lambdas
-    this.fibulaLambdas = new FibulaLambdas(this, 'Lambdas', {
+    this.fibulaLambdas = new FibulaLambdas(this, "Lambdas", {
       requestTopic: this.sendEnrollmentRequestTopic,
       responseTopic: this.sendEnrollmentResponseTopic,
       installerBucket: this.installerBucket,
-      domainName: this.reactApp.distribution.distributionDomainName
+      domainName: this.reactApp.distribution.distributionDomainName,
     });
 
     // API
-    this.api = new FibulaApi(this, 'FibulaApi', {
-      fibulaLambdas: this.fibulaLambdas
+    this.api = new FibulaApi(this, "FibulaApi", {
+      fibulaLambdas: this.fibulaLambdas,
     });
-
   }
 }
