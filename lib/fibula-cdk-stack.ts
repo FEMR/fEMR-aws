@@ -52,9 +52,9 @@ export class FibulaStack extends cdk.Stack {
       }
     );
 
-    // S3 Bucket
+    // S3 Bucket - update to avoid collision
     this.installerBucket = new Bucket(this, "InstallerBucket", {
-      bucketName: "fibula-installer",
+      bucketName: "fibula-femr-installer",
     });
 
     // Lambdas
