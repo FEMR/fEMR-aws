@@ -9,7 +9,8 @@ def lambda_handler(event, context):
     event_body = json.loads(event.get("body", "{}"))
 
     try:
-        user = json.loads(requests.get(f"http://femr-central-api.us-west-2.elasticbeanstalk.com/user/{event_body.get('email')}/").text)
+        user = json.loads(requests.get(f"http://skelechaingang-env.eba-i65amzvv.us-west-2.elasticbeanstalk.com/
+user/{event_body.get('email')}/").text)
     except:
         user = None
 
