@@ -8,7 +8,7 @@ function FemrInstallationGuide() {
   const getDownloadLinks = async () => {
     try {
       const winResponse = await fetch(
-        "https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/installer/windows"
+        "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/windows"
       );
       const winLink = await winResponse.text();
 

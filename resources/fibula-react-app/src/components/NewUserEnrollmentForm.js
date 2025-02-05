@@ -19,7 +19,7 @@ function ContactForm() {
     );
     // You can replace the console.log with your desired submit logic
     await fetch(
-      "https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/enroll",
+      "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/enroll",
       {
         method: "PUT",
         body: JSON.stringify({

@@ -24,7 +24,7 @@ function AdminEnrollmentManagement() {
     console.log(row);
 
     await fetch(
-      `https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/enroll/${row.requestid}`,
+      `https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/enroll/${row.requestid}`,
       {
         method: "PUT",
         body: JSON.stringify({
@@ -43,7 +43,7 @@ function AdminEnrollmentManagement() {
     console.log("Denying enrollment request for " + row.email);
     console.log(row.requestid);
     await fetch(
-      `https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/enroll/${row.requestid}`,
+      `https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/enroll/${row.requestid}`,
       {
         method: "PUT",
         body: JSON.stringify({
@@ -92,7 +92,7 @@ function AdminEnrollmentManagement() {
 
   const fetchData = async () => {
     await fetch(
-      "https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/enroll"
+      "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/enroll"
     )
       .then((response) => response.json())
       .then((data) => setData(data));

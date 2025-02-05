@@ -8,11 +8,11 @@ function FemrInstallationGuide() {
   const getDownloadLinks = async () => {
     try {
       const macResponse = await fetch(
-        "https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/installer/macos"
+        "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/macos"
       );
       const macLink = await macResponse.text();
       const winResponse = await fetch(
-        "https://almpulq5w3.execute-api.us-east-2.amazonaws.com/prod/installer/windows"
+        "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/windows"
       );
       const winLink = await winResponse.text();
 
