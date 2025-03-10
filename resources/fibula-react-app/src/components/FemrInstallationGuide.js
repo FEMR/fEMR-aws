@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 
 function FemrInstallationGuide() {
   const [macLink, setMacLink] = useState("");
-  const [winLink, setWinLink] = useState("");
 
   const getDownloadLinks = async () => {
     try {
@@ -11,13 +10,8 @@ function FemrInstallationGuide() {
         "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/macos"
       );
       const macLink = await macResponse.text();
-      const winResponse = await fetch(
-        "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/windows"
-      );
-      const winLink = await winResponse.text();
 
       setMacLink(macLink);
-      setWinLink(winLink);
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +35,7 @@ function FemrInstallationGuide() {
         </div>
         <div>
           <center>
-            <h1> How to Install Off-Chain Femr On MacOSX </h1>
+            <h1> How to Install Femr On MacOSX </h1>
           </center>
           <center>
             <p>
@@ -84,7 +78,7 @@ function FemrInstallationGuide() {
                 color="primary"
                 textTransform="none"
               >
-                Install fEMR Off-Chain
+                Install fEMR
               </Button>
             </div>
           </center>

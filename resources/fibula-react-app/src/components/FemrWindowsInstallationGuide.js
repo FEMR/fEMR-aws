@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 
 function FemrInstallationGuide() {
-  const [macLink, setMacLink] = useState("");
   const [winLink, setWinLink] = useState("");
 
   const getDownloadLinks = async () => {
@@ -36,7 +35,7 @@ function FemrInstallationGuide() {
         </div>
         <div>
           <center>
-            <h1> How to Install Off-Chain Femr On Windows </h1>
+            <h1> How to Install Femr On Windows </h1>
           </center>
           <center>
             <p>
@@ -60,7 +59,7 @@ function FemrInstallationGuide() {
                   color="primary"
                   textTransform="none"
                 >
-                  Install fEMR Off-Chain
+                  Install fEMR
                 </Button>
               </div>
               <br></br>
