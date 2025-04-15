@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 
 function FemrInstallationGuide() {
   const [macLink, setMacLink] = useState("");
+  const [architecture, setArchitecture] = useState(null);
 
   const getDownloadLinks = async () => {
     try {
@@ -19,7 +20,30 @@ function FemrInstallationGuide() {
 
   useEffect(() => {
     getDownloadLinks();
+
+    const fetchArch = async () => {
+      if (navigator.userAgentData) {
+        try {
+          const result = await getArchitecture();
+          setArchitecture(result.architecture);
+          console.log("Architecture:", result.architecture); // e.g., arm64 or x86
+        } catch (err) {
+          console.error("Failed to get architecture:", err);
+        }
+      } else {
+        console.warn("userAgentData is not supported on this browser.");
+      }
+    };
+
+    fetchArch();
   }, []);
+
+  const getArchitecture = async () => {
+    const arch = await navigator.userAgentData.getHighEntropyValues([
+      "architecture",
+    ]);
+    return arch;
+  };
 
   const handleDownload = () => {
     window.open(macLink);
