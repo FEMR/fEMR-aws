@@ -53,10 +53,11 @@ function FemrInstallationGuide() {
   }, []);
 
   useEffect(() => {
-    if (architecture) {
-      getDownloadLinks();
-    } else {
+    getDownloadLinks();
+    if (!architecture) {
       console.log("Architecture is not set, providing customer choice.");
+    } else {
+      console.log("Architecture is set:", architecture);
     }
   }, [architecture]);
 
