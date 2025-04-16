@@ -2,13 +2,14 @@ import os
 import boto3
 
 # Get the latest installer version from s3
-# The versions are stored with the key format: {platform}/{version}/{installer}.{pkg/exe}
+# The versions are stored with the key format: {platform}/{architecture}/{version}/{installer}.{pkg/exe}
 
 def lambda_handler(event, context):
     s3 = boto3.client('s3')
     platform = event.get('pathParameters', {}).get('platform', 'macos')
+    architecture = event.get('pathParameters', {}).get('architecture', 'intel')
     # Get all objects in the bucket
-    response = s3.list_objects_v2(Bucket=os.environ['BUCKET_NAME'], Prefix=f'{platform}/')
+    response = s3.list_objects_v2(Bucket=os.environ['BUCKET_NAME'], Prefix=f'{platform}/{architecture}/')
 
     # Paginate if necessary
     while response['IsTruncated']:
@@ -16,7 +17,7 @@ def lambda_handler(event, context):
             s3.list_objects_v2(
                 Bucket=os.environ['BUCKET_NAME'],
                 PaginationConfig={'StartingToken': response['NextToken']},
-                Prefix=f'{platform}/'
+                Prefix=f'{platform}/{architecture}/'
             )['Contents']
         )
 
@@ -37,7 +38,7 @@ def lambda_handler(event, context):
                 ClientMethod='get_object',
                 Params={
                     'Bucket': os.environ['BUCKET_NAME'],
-                    'Key': f'{platform}/{latest_version}/femr-x64-{latest_version}.{"pkg" if platform == "macos" else "exe"}'
+                    'Key': f'{platform}/{architecture}/{latest_version}/femr-x64-{latest_version}.{"pkg" if platform == "macos" else "exe"}'
                 },
                 ExpiresIn=43200
             )
