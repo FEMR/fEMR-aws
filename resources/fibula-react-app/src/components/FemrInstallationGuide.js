@@ -2,41 +2,63 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 
 function FemrInstallationGuide() {
-  const [macLink, setMacLink] = useState("");
+  const [intelMacLink, setIntelMacLink] = useState("");
+  const [armMacLink, setArmMacLink] = useState("");
   const [architecture, setArchitecture] = useState(null);
 
   const getDownloadLinks = async () => {
     try {
-      const macResponse = await fetch(
-        "https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/macos"
+      const intelMacResponse = await fetch(
+        `https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/macos/intel`
       );
-      const macLink = await macResponse.text();
+      const intelLink = await intelMacResponse.text();
 
-      setMacLink(macLink);
+      setIntelMacLink(intelLink);
+      const armMacResponse = await fetch(
+        `https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/installer/macos/arm`
+      );
+      const armLink = await armMacResponse.text();
+
+      setArmMacLink(armLink);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getDownloadLinks();
-
     const fetchArch = async () => {
       if (navigator.userAgentData) {
         try {
           const result = await getArchitecture();
-          setArchitecture(result.architecture);
-          console.log("Architecture:", result.architecture); // e.g., arm64 or x86
-        } catch (err) {
-          console.error("Failed to get architecture:", err);
+          const arch = result.architecture.toLowerCase();
+          if (arch.includes("arm")) {
+            setArchitecture("arm");
+          } else if (arch.includes("x86")) {
+            setArchitecture("intel");
+          } else {
+            console.warn("Unknown architecture:", arch);
+            setArchitecture(null);
+          }
+          console.log("Architecture:", arch); // e.g., arm or intel
+        } catch (error) {
+          console.error("Error fetching architecture:", error);
+          setArchitecture(null);
         }
       } else {
-        console.warn("userAgentData is not supported on this browser.");
+        console.log("navigator.userAgentData is not available");
       }
     };
 
     fetchArch();
   }, []);
+
+  useEffect(() => {
+    if (architecture) {
+      getDownloadLinks();
+    } else {
+      console.log("Architecture is not set, providing customer choice.");
+    }
+  }, [architecture]);
 
   const getArchitecture = async () => {
     const arch = await navigator.userAgentData.getHighEntropyValues([
@@ -45,8 +67,13 @@ function FemrInstallationGuide() {
     return arch;
   };
 
-  const handleDownload = () => {
-    window.open(macLink);
+  const handleDownload = (arch) => {
+    if (arch === "arm") {
+      window.open(armMacLink);
+    }
+    if (arch === "intel") {
+      window.open(intelMacLink);
+    }
   };
 
   return (
@@ -94,17 +121,48 @@ function FemrInstallationGuide() {
             </p>
           </center>
           <center>
-            <div class="macButton">
-              <Button
-                variant="contained"
-                disabled={macLink === ""}
-                onClick={handleDownload}
-                color="primary"
-                textTransform="none"
-              >
-                Install fEMR
-              </Button>
-            </div>
+            {!architecture ? (
+              <div class="macButton">
+                <Button
+                  variant="contained"
+                  disabled={
+                    architecture === "intel"
+                      ? intelMacLink === ""
+                      : armMacLink === ""
+                  }
+                  onClick={() => handleDownload(architecture)}
+                  color="primary"
+                  textTransform="none"
+                >
+                  Install fEMR
+                </Button>
+              </div>
+            ) : (
+              <>
+                <div class="macButton">
+                  <Button
+                    variant="contained"
+                    disabled={intelMacLink === ""}
+                    onClick={() => handleDownload("intel")}
+                    color="primary"
+                    textTransform="none"
+                  >
+                    Install fEMR (Intel Mac)
+                  </Button>
+                </div>
+                <div class="macButton">
+                  <Button
+                    variant="contained"
+                    disabled={armMacLink === ""}
+                    onClick={() => handleDownload("arm")}
+                    color="primary"
+                    textTransform="none"
+                  >
+                    Install fEMR (Arm Mac)
+                  </Button>
+                </div>
+              </>
+            )}
           </center>
           <center>
             <p>
