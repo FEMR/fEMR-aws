@@ -23,7 +23,7 @@ def lambda_handler(event, context):
 
     if response['KeyCount'] > 0:
         # Get the latest version
-        versions = map(lambda x: x['Key'].split('/')[2], response['Contents'])
+        versions = map(lambda x: x['Key'].split('/')[2], response['Contents']) # extract version from key (ex: {platform}/{architecture}/{version}/...)
         latest_version = sorted(versions, reverse=True)[0]
 
         # return presigned url for 12 hours

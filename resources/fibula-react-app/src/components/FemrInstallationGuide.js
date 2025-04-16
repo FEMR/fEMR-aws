@@ -121,7 +121,7 @@ function FemrInstallationGuide() {
             </p>
           </center>
           <center>
-            {!architecture ? (
+            {architecture ? (
               <div class="macButton">
                 <Button
                   variant="contained"
