@@ -135,7 +135,8 @@ function FemrInstallationGuide() {
                   color="primary"
                   textTransform="none"
                 >
-                  Install fEMR
+                  Install fEMR (
+                  {architecture === "intel" ? "Intel Mac" : "Arm Mac"})
                 </Button>
               </div>
             ) : (
