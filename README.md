@@ -1,29 +1,21 @@
-# fEMR Self-Bulding Kit
+# fibula React app and AWS lambdas
 
-### Description
+### React App
 
-fEMR is a fast EMR solution for remote clinics who depend on speed and ease of use rather than complex features.
+Directory: `/resources/fibula-react-app`
 
-### Dependencies
+### AWS lambdas
 
-- [Docker](https://docs.docker.com/get-docker/)
+Directory: `/resources/lambdas`
 
-### Running the Docker Image
-
-1. Clone the [super-femr repo](https://github.com/CPSECapstone/super-femr).
-2. Ensure Docker is running.
-3. `docker-compose up`
-
-On M1 macOS, the following line needs to be added to the `docker-compose.yml` file for both services.
-
-```
-platform: linux/x86_64
-```
-
-### Installer
+### Installer Repo
 
 Check out our [installer repo](https://github.com/fEMR/macos-installer-builder-femr/tree/master) for directions on how to setup the installer.
 
-## Continous Integration
+### AWS Pipeline:
 
 Link to AWS Deployment Pipeline: https://us-east-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/FibulaPipeline/view?region=us-east-2
+
+### AWS S3 Bucket:
+
+https://us-east-2.console.aws.amazon.com/s3/buckets/fibula-femr-installer?bucketType=general&region=us-east-2&tab=objects#
