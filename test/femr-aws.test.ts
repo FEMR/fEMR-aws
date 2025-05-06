@@ -1,13 +1,13 @@
 // import * as cdk from 'aws-cdk-lib';
 // import { Template } from 'aws-cdk-lib/assertions';
-// import * as FibulaCdk from '../lib/fibula-cdk-stack';
+// import * as FEmrAws from '../lib/f_emr-aws-stack';
 
 // example test. To run these tests, uncomment this file along with the
-// example resource in lib/fibula-cdk-stack.ts
+// example resource in lib/f_emr-aws-stack.ts
 test('SQS Queue Created', () => {
 //   const app = new cdk.App();
 //     // WHEN
-//   const stack = new FibulaCdk.FibulaCdkStack(app, 'MyTestStack');
+//   const stack = new FEmrAws.FEmrAwsStack(app, 'MyTestStack');
 //     // THEN
 //   const template = Template.fromStack(stack);
 
