@@ -85,5 +85,13 @@ export class FibulaApi extends Construct {
       "GET",
       new LambdaIntegration(props.fibulaLambdas.getInstallerLambda)
     );
+
+    const uploadDumpApi = this.api.root.addResource("upload_dump");
+
+    const idResource = uploadDumpApi.addResource("{id}");
+    idResource.addMethod(
+      "POST",
+      new LambdaIntegration(props.fibulaLambdas.uploadDump)
+    );
   }
 }

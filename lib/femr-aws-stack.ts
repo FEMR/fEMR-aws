@@ -38,13 +38,20 @@ export class FemrAwsStack extends cdk.Stack {
     const reactApp = new FibulaReactApp(this, "ReactApp");
 
     // S3 Bucket - update to avoid collision
-    const installerBucket = new Bucket(this, "InstallerBucket", {});
+    const installerBucket = new Bucket(this, "InstallerBucket", {
+      bucketName: "femr-installer",
+    });
+
+    const dbDumpBucket = new Bucket(this, "DBDumpBucket", {
+      bucketName: "femr-kit-db-dumps",
+    });
 
     // Lambdas
     const fibulaLambdas = new FibulaLambdas(this, "Lambdas", {
       requestTopic: sendEnrollmentRequestTopic,
       responseTopic: sendEnrollmentResponseTopic,
       installerBucket: installerBucket,
+      dbDumpBucket: dbDumpBucket,
       domainName: reactApp.distribution.distributionDomainName,
     });
 

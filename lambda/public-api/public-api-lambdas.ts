@@ -12,6 +12,7 @@ interface FibulaLambdasProps {
   responseTopic: Topic;
   installerBucket: Bucket;
   domainName: string;
+  dbDumpBucket: Bucket;
 }
 
 export class FibulaLambdas extends Construct {
@@ -21,6 +22,7 @@ export class FibulaLambdas extends Construct {
   readonly loginLambda: Function;
   readonly getEnrollmentRequestsLambdas: Function;
   readonly getInstallerLambda: Function;
+  readonly uploadDump: Function;
 
   constructor(scope: Construct, id: string, props: FibulaLambdasProps) {
     super(scope, id);
@@ -126,5 +128,16 @@ export class FibulaLambdas extends Construct {
       })
     );
     props.installerBucket.grantRead(this.getInstallerLambda);
+
+    this.uploadDump = new Function(scope, "UploadDumpLambda", {
+      runtime: Runtime.PYTHON_3_13,
+      code: Code.fromAsset("lambda/public-api"),
+      handler: "upload_dump.lambda_handler",
+      environment: {
+        BUCKET_NAME: props.dbDumpBucket.bucketName,
+      },
+    });
+
+    props.dbDumpBucket.grantPut(this.uploadDump);
   }
 }
