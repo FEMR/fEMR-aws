@@ -8,10 +8,17 @@ import { Topic } from "aws-cdk-lib/aws-sns";
 import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { FibulaReactApp } from "./frontend";
+import { UserAuthentication } from "./user-authentication";
 
 export class FemrAwsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+
+    // Cognito User Authentication
+    const userAuth = new UserAuthentication(this, "UserAuth", {
+      domainPrefix: "femr",
+      production: false,
+    });
 
     // SNS Topic
     const sendEnrollmentRequestTopic = new Topic(
