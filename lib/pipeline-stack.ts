@@ -14,7 +14,7 @@ export class PipelineStack extends cdk.Stack {
     const pipeline = new CodePipeline(this, "FibulaPipeline", {
       pipelineName: "FibulaPipeline",
       synth: new ShellStep("Synth", {
-        input: CodePipelineSource.connection("FEMR/fibula-aws", "main", {
+        input: CodePipelineSource.connection("FEMR/fEMR-aws", "main", {
           connectionArn:
             "arn:aws:codeconnections:us-east-2:177099735333:connection/441b3a6c-57c1-48cd-ab0c-014953ce5618", // Created using the AWS console
         }),
