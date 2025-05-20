@@ -38,7 +38,7 @@ def lambda_handler(event, context):
                 ClientMethod='get_object',
                 Params={
                     'Bucket': os.environ['BUCKET_NAME'],
-                    'Key': f'{platform}/{architecture}/{latest_version}/femr-{"arm" if platform == "macos" else "intel"}-{latest_version}.{"pkg" if platform == "macos" else "exe"}' #link needs to be updated when naming changes in S3
+                    'Key': f'{platform}/{architecture}/{latest_version}/femr-{"arm" if platform == "macos" else "intel"}-{latest_version}.{"pkg" if platform == "macos" else "exe"}'
                 },
                 ExpiresIn=43200
             )
