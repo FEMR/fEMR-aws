@@ -1,21 +1,14 @@
-# fibula React app and AWS lambdas
+# Welcome to your CDK TypeScript project
 
-### React App
+This is a blank project for CDK development with TypeScript.
 
-Directory: `/resources/fibula-react-app`
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-### AWS lambdas
+## Useful commands
 
-Directory: `/resources/lambdas`
-
-### Installer Repo
-
-Check out our [installer repo](https://github.com/fEMR/macos-installer-builder-femr/tree/master) for directions on how to setup the installer.
-
-### AWS Pipeline:
-
-Link to AWS Deployment Pipeline: https://us-east-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/FibulaPipeline/view?region=us-east-2
-
-### AWS S3 Bucket:
-
-https://us-east-2.console.aws.amazon.com/s3/buckets/fibula-femr-installer?bucketType=general&region=us-east-2&tab=objects#
+* `npm run build`   compile typescript to js
+* `npm run watch`   watch for changes and compile
+* `npm run test`    perform the jest unit tests
+* `npx cdk deploy`  deploy this stack to your default AWS account/region
+* `npx cdk diff`    compare deployed stack with current state
+* `npx cdk synth`   emits the synthesized CloudFormation template
