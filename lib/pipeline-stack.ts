@@ -7,12 +7,8 @@ import {
 } from "aws-cdk-lib/pipelines";
 import { FemrStage, LogicalStage } from "./femr-prod-stage";
 
-interface FibulaStackProps extends cdk.StackProps {
-  logicalStage: LogicalStage;
-}
-
 export class PipelineStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props: FibulaStackProps) {
+  constructor(scope: Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
 
     const pipeline = new CodePipeline(this, "FemrPipeline", {
