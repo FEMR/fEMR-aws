@@ -9,15 +9,20 @@ import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { FibulaReactApp } from "./frontend";
 import { UserAuthentication } from "./user-authentication";
+import { LogicalStage } from "./femr-prod-stage";
+
+interface FemrAwsStackProps extends cdk.StackProps {
+  logicalStage: LogicalStage;
+}
 
 export class FemrAwsStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: FemrAwsStackProps) {
     super(scope, id, props);
 
     // Cognito User Authentication
     const userAuth = new UserAuthentication(this, "UserAuth", {
       domainPrefix: "femr",
-      production: false,
+      production: props?.logicalStage === LogicalStage.PROD,
     });
 
     // SNS Topic

@@ -19,6 +19,7 @@ export class FemrStage extends cdk.Stage {
 
     this.fibulaStack = new FemrAwsStack(this, "FemrStack", {
       env: props.env,
+      logicalStage: props.logicalStage,
     });
   }
 }
