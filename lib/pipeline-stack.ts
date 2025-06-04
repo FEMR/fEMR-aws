@@ -11,8 +11,8 @@ export class PipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
 
-    const pipeline = new CodePipeline(this, "FibulaPipeline", {
-      pipelineName: "FibulaPipeline",
+    const pipeline = new CodePipeline(this, "FemrPipeline", {
+      pipelineName: "FemrPipeline",
       synth: new ShellStep("Synth", {
         input: CodePipelineSource.connection("FEMR/fEMR-aws", "main", {
           connectionArn:
