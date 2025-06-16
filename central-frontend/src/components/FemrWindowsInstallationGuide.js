@@ -36,6 +36,25 @@ function FemrInstallationGuide() {
         <div>
           <center>
             <h1> How to Install Femr On Windows </h1>
+            <p></p>
+          </center>
+          <center>
+            <p>
+              {" "}
+              <b>Minimum Windows Version Requirements</b>{" "}
+            </p>
+          </center>
+          <center>
+            <pre>
+              &nbsp;&nbsp;&nbsp;&nbsp;Due to Docker Windows requirements, the
+              minimum supported versions are:<br></br>
+              &nbsp;&nbsp;&nbsp;&nbsp;- Windows 11 64-bit: Home or Pro version
+              22H2 or higher, or Enterprise or Education version 22H2 or
+              higher.<br></br>
+              &nbsp;&nbsp;&nbsp;&nbsp;- Windows 10 64-bit: Minimum required is
+              Home or Pro 22H2 (build 19045) or higher, or Enterprise or
+              Education 22H2 (build 19045) or higher.<br></br>
+            </pre>
           </center>
           <center>
             <p>
